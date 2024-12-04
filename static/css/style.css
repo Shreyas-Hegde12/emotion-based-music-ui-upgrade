@@ -1,0 +1,266 @@
+*{
+    margin:0px;
+    padding:0px;
+    box-sizing: border-box;
+}
+button{
+    cursor: pointer;
+}
+::-webkit-scrollbar {
+    display:none!important;
+}
+::-webkit-scrollbar-track {
+    background: #4a2727;
+}
+::-webkit-scrollbar-thumb {
+    background: #170303;
+}
+
+.player{
+    padding: 2%;
+    border-radius: 20px;
+    overflow:hidden;
+    display: flex; flex-direction: column; justify-content: center; place-items: center;
+    width: 65%;
+    height: auto;
+}
+.player img{
+    margin: 5%;
+    width: 90%;
+    height: auto;
+    aspect-ratio: 1/1;
+
+}
+.current-song-detail{
+    display: flex;
+    flex-direction: row;
+    gap: 0%;
+    width: 90%;
+}
+.current-song-detail h2{
+    font-size: min(5vw, 25px);
+    font-family: open sans;
+}
+.current-song-detail p{
+    font-size: min(4.2vw, 20px);
+    font-family: open sans;
+    font-style: italic;
+}
+.play-button{
+    color: white;
+    background-color: rgb(202, 2, 2);
+    width: 65%;
+    height: auto;
+    aspect-ratio: 1/1;
+    padding: 10%;
+    outline: none;
+    border: 0px;
+    border-radius: 50%;
+    font-size: 180%;
+    transform: translate(20%,-50%);
+    transition: transform ease-in 0.1s;
+}
+.play-button:hover{
+    background-color:  rgb(255, 0, 0);
+    transform: translate(20%,-50%) scale(1.1);
+}
+.slider {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+.slider:hover {
+        opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 35px;
+    height: 35px;
+    background: rgb(255, 0, 0);
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 35px;
+    height: 35px;
+    background: rgb(255, 0, 0);
+    cursor: pointer;
+}
+
+.similar-songs > div{
+    display:flex;
+    flex-direction: row;
+}
+.song-card{
+    margin:5%;
+    width: auto;
+    height: 400px;
+    aspect-ratio: 16/20;
+    display:flex;
+    flex-direction: column;
+    place-items: center;
+    border-radius: 10px;
+    position: relative;
+    cursor:pointer;
+}
+.thumb{
+    aspect-ratio: 1/1;
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    place-items:center;
+    justify-content: center;
+}
+.thumb img{
+    width: 90%;
+    height: auto;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+}
+.song-card h3{
+    margin-top: 5%;
+    font-family: open sans;
+    font-size: min(4vw, 18px);
+}
+.song-card p{
+    margin-top: 2%;
+    font-family: open sans;
+    font-style: italic;
+    font-size: min(3.7vw, 16px);
+    margin-bottom: 5%;
+}
+.similar-song-play{
+    width:28%;
+    height: auto;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: rgb(202, 2, 2);
+    position: absolute;
+    bottom: 30%;
+    right: 10%;
+    opacity: 0;
+    transform: translateY(18%);
+    display:flex;
+    justify-content: center;
+    place-items: center;
+    padding: 1%;
+    transition: opacity 0.2s linear, transform 0.2s linear;
+    z-index: 40;
+    cursor: pointer;
+}
+.song-card:hover .similar-song-play{
+    transform: translateY(0%);
+    opacity: 1;
+}
+.similar-song-play:hover{
+    transform: scale(1.08)!important;
+    background-color: rgb(255, 0, 0)!important;
+    transition: transform 0.2s linear, background-color 0.1s linear!important;
+}
+
+/* Left Side Panel */
+#video{
+position: relative;
+transform: translateY(0%);
+object-fit: cover;
+width: 100%!important;
+height: auto!important;
+aspect-ratio: 48/45!important;
+}
+canvas{
+position: relative;
+object-fit: cover;
+transform: translateY(-105%);
+width: 100%!important;
+height: auto!important;
+aspect-ratio: 48/45!important;
+}
+.start-sampling{
+position:absolute;
+top: 0%;
+left: 0%;
+width: 100%;
+height: 100%;
+display: flex; 
+justify-content: center;
+place-items: center;
+background-color: transparent;
+}
+.sample-button{
+border: 3px solid #aaa; outline: none; border-radius: 100px; width: 80%; height: auto; max-width: 440px; aspect-ratio: 16/4.5; display: flex; gap: 4%; padding: 1% 5%; background-color: white; overflow: hidden; justify-content: center;
+place-items:center; 
+}        
+.emotions-roll{
+animation: tape 10s  ease-in infinite;
+animation-fill-mode: forwards;
+aspect-ratio: 1/1; flex: 1; background-repeat: repeat-y; background-size: cover; max-width: 200px; background-position: 0% 1%;
+}
+@keyframes tape{
+from{background-position: 0% 1%;}
+to{background-position: 0% 100%;}
+}
+
+#recommendation-note{
+    text-align:center;
+    padding: 2% 0 -5% 0;
+    font-size: 20px;
+    font-family: 'open sans';
+}
+.predict-button{
+margin-top:  4%;
+padding: 1.5em;
+width: 65vw;
+max-width: 300px;
+aspect-ratio: 16/4.5;
+background-color: white;
+justify-content:center;
+place-items:center;
+display:flex;
+border-radius: 50px;
+position: relative;
+cursor:pointer;
+font-size: min(6.6vw,28px);
+font-family: 'open sans';
+}
+
+@property --angle{
+syntax: "<angle>";
+initial-value: 0deg;
+inherits: false;
+}
+
+.predict-button::after, .predict-button::before{
+content: '';
+position: absolute;
+height: 100%;
+width: 100%;
+background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+top: 50%;
+left: 50%;
+translate: -50% -50%;
+z-index: -1;
+padding: 3px;
+border-radius: 50px;
+animation: 3s spin linear infinite;
+}
+
+.predict-button::before{
+filter: blur(1.5rem);
+opacity: 0.5;
+}
+@keyframes spin{
+from{
+--angle: 0deg;
+}
+to{
+--angle: 360deg;
+}
+}

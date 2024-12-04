@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Music</title>
+        <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <link href="static/css/style.css" rel="stylesheet">
+        <script defer src="static/js/face-api.min.js"></script>
+        <script defer src="static/js/musicjs.js"></script>
+        <script defer src="static/js/faceapi.js"></script>
+        <style>
+            .emotions-roll{
+                background-image: url('static/images/emotions.jpg');
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div style="position: relative; width: 100%; display: flex; flex-direction: row;  flex-wrap: wrap;">
+           
+            <!-- ML Model Emotion Recognition -->
+            <div style="flex: 1; display: flex; gap: 5%; flex-direction: column; justify-content: center; place-items: center; height: 100vh; margin-top: 4%;">
+                <div name="video" style="width: 80%; height: auto; border-radius: 30px; aspect-ratio: 16/11; overflow:visible!important; position: relative;" >
+                    <div style="width: 100%; height: auto; border-radius: 30px; background: #eee; aspect-ratio: 16/11; overflow:hidden; position:relative;" id="video-container">
+                        <video id="video" width="480px" height="450px" autoplay muted></video>
+                    </div>
+
+                    <!-- Sample your emotion --><div class="start-sampling"><div class="sample-button"><div class="emotions-roll"></div><div style="text-align: center;"><p style="font-family: open sans; font-size: min(4vw,30px); flex: 2; color: #555;">Sample your Mood</p></div></div></div>
+                </div>
+
+                <p id="recommendation-note"></p>
+
+                <div class="predict-button" onclick="recommend()">
+                    <p>Fetch Songs</p>
+                </div>
+                <br>
+            </div>
+        
+            <!-- Main Player -->
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; place-items: center;">
+                <!-- Playing Card -->
+                <div class="player">
+                        <img src="https://img.freepik.com/premium-photo/white-natural-paper-texture-clean-square-background-wallpaper_118047-7127.jpg" alt="Song Artwork">
+                    <div name="mainsong metadata" class="current-song-detail">
+                        <div style="flex: 1;">
+                            <button class="play-button" onclick="togglePlay(); cooldown();"><div style="transform: translate(5%,-5%);">▶</div></button>
+                        </div>
+                        <div style="flex: 1;">
+                            <div><h2>Song Title</h2></div>
+                            <div><p>Artist Name</p></div>
+                        </div>
+                    </div> 
+                    <div class="slide-container" style="width: 90%; justify-content: center; place-items: center;">
+                        <input type="range" onchange="updateSlider(1)" class="slider button" id="music-slider" min="0"  max="100" value="0" />
+                    </div>  
+                </div>
+                <br>
+                
+
+                <!-- Similar Songs Cards -->
+                 <p style="font-size: min(8vw, 30px); font-family: open sans; padding: 5% 0% 2% 0%;">Similar Songs</p>
+                 <div class="similar-songs" style="overflow-y: hidden; overflow-x: auto; width: 100%;  height: auto; max-width: 450px; aspect-ratio: 16/20; ">
+                    <div>
+                        <div class="song-card" id="similar1" onclick="similarsongclick('#similar1'); cooldown();">
+                            <div class="thumb">
+                                <img src="https://img.freepik.com/premium-photo/white-natural-paper-texture-clean-square-background-wallpaper_118047-7127.jpg" alt="Song 1">
+                            </div>
+                            <div>
+                                <h3>Song Title 1</h3>
+                                <p>Artist Name</p>
+                            </div>
+                            <div class="similar-song-play button">
+                                <div style="transform: translateX(5%); font-size: 130%; color:white;">▶</div>
+                            </div>
+                        </div>
+                        <div class="song-card button" id="similar2" onclick="similarsongclick('#similar2');">
+                            <div class="thumb">
+                                <img src="https://img.freepik.com/premium-photo/white-natural-paper-texture-clean-square-background-wallpaper_118047-7127.jpg" alt="Song 1">
+                            </div>
+                            <div>
+                                <h3>Song Title 2</h3>
+                                <p>Artist Name</p>
+                            </div>
+                            <div class="similar-song-play button">
+                                <div style="transform: translateX(5%);font-size: 130%; color:white;">▶</div>
+                            </div>
+                        </div>
+                        <div class="song-card button" id="similar3" onclick="similarsongclick('#similar3')">
+                            <div class="thumb">
+                                <img src="https://img.freepik.com/premium-photo/white-natural-paper-texture-clean-square-background-wallpaper_118047-7127.jpg" alt="Song 1">
+                            </div>
+                            <div>
+                                <h3>Song Title 3</h3>
+                                <p>Artist Name</p>
+                            </div>
+                            <div class="similar-song-play button">
+                                <div style="transform: translateX(5%); font-size: 130%; color:white;">▶</div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                
+                
+            </div>
+        </div>
+    </body>
+</html>
