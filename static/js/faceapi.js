@@ -2,7 +2,6 @@ const video = document.getElementById('video')
 const sampler = document.querySelector('.start-sampling');
 let watchState = true;
 let cooldowntime = false;
-const targetElement = document.querySelector('#video');
 let dominantExpression = 'starter';
 
 const emoji = {
@@ -12,14 +11,6 @@ const emoji = {
   'sad': '😭 SAD',
   'angry': '😤 ANGRY',
 }
-const note = {
-  'neutral': "Wow! Been a while seeing a calm face! <br> Now playing Old Hits and groovy melodies for you to vibe",
-  'happy': "You look so happy! <br> Lets Elevate your mood ++",
-  'surprised': "Want a surprise? <br> Now playing a catchy groovy song from our playlist",
-  'sad': "Buckle up soldier! Don't be sad! <br> Life is not yet over",
-  'angry': "Ooh! You look angry.. Being happy is still a choice... <br> Now playing calming classical songs and ambient sounds!",
-}
-
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/static/models'),
   faceapi.nets.faceLandmark68Net.loadFromUri('/static/models'),
@@ -37,12 +28,13 @@ function startVideo() {
 
 video.addEventListener('play', () => {
   const canvas = faceapi.createCanvasFromMedia(video);
+  canvas.setAttribute('class','canvas-photo');
   document.querySelector('#video-container').append(canvas);
   
   const displaySize = { width: video.width, height: video.height };
   faceapi.matchDimensions(canvas, displaySize);
 
-  sampler.style.display = 'none';
+  //sampler.style.display = 'none';
 
   setInterval(async () => {
     if (watchState == true && cooldowntime == false) {
@@ -83,6 +75,8 @@ video.addEventListener('play', () => {
       }
     }
   }, 100);
+  document.querySelector('#video-container').classList.add('smooth-transition');
+  const a = setTimeout(function(){document.querySelector('#video-container').classList.remove('gradient'); },2e3);
 });
 
 
@@ -111,7 +105,7 @@ const observer = new IntersectionObserver(handleIntersection, {
 });
 
 // Start observing the target element
-observer.observe(targetElement);
+observer.observe(video);
 
 
 //button click cooldown
@@ -130,6 +124,32 @@ function setDominantEmotion(expressions) {
 function recommend(){
   cooldown();
   fetchSongOnEmotion(dominantExpression);
+  generatePhoto();
+  throwPhoto();
   video.pause();
-  document.querySelector('#recommendation-note').innerHTML = note[dominantExpression];
+  document.querySelector('#video-container').classList.add('gradient');
+  const a = setTimeout(function(){document.querySelector('#video-container').classList.remove('gradient'); },2e3);
+}
+
+function generatePhoto(){
+  const vd = document.querySelector('video');
+  const canv = document.createElement('canvas');
+  const conx = canv.getContext('2d');
+  canv.width = vd.videoWidth;
+  canv.height = vd.videoHeight;
+  conx.drawImage(vd, 0, 0, canv.width, canv.height);
+
+  const img_src = canv.toDataURL('image/jpeg');
+  const boxCanvas = document.querySelector('.canvas-photo'); 
+  const box_src = boxCanvas.toDataURL('image/png');
+  
+  document.querySelector('#photograph').src = img_src;
+  document.querySelector('#face-box').src = box_src;
+  
+}
+
+function throwPhoto(){
+  const photo = document.querySelector('#clicked-photo');
+  photo.classList.add('clicked-photo-animation');
+  const r = setTimeout(function(){photo.classList.remove('clicked-photo-animation');},5e3);
 }

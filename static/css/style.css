@@ -6,6 +6,10 @@
 button{
     cursor: pointer;
 }
+p{
+    color: white;
+}
+
 ::-webkit-scrollbar {
     display:none!important;
 }
@@ -15,14 +19,244 @@ button{
 ::-webkit-scrollbar-thumb {
     background: #170303;
 }
+body{
+    background-color: #000;
 
+}   
+
+
+@keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .gradient {
+    --size: 750px;
+    --speed: 10s;
+    --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+    width: var(--size);
+    height: var(--size);
+    filter: blur(calc(var(--size) / 5));
+    background-image: linear-gradient(#4377ef, #7befd0);
+    animation: rotate var(--speed) var(--easing) alternate infinite;
+    border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+  }
+  
+  .smooth-transition{
+    transition: width 5s ease, height 5s ease, filter 0.2s ease, background-image 5s ease, border-radius 5s ease;
+  }
+  @media (min-width: 720px) {
+    .gradient {
+      --size: 500px;
+    }
+  }
+
+/*Nav Bar*/
+nav{
+    display: flex;
+    justify-content: center;
+    place-items: center;
+    width: 100%;
+    height: auto;
+}
+.logo{
+    position: absolute;
+    top: 3%;
+    left: 2%;
+    font-family: 'open sans';
+    font-size: min(8vw,26px);
+    font-weight: bolder;
+    color: white;
+}
+.search{
+width: 33%;
+height:55px;
+margin: 15px;
+}
+#search-bar{
+    width: 100%;
+    height: 50px;
+    border-radius: 30px;
+    background: #1e1e1e;
+    padding: 10px;
+    text-align: left;
+    font-family: 'open sans';
+    color: white;
+    outline:0px;
+    border: 0px;
+}
+#search-bar::placeholder{
+    padding: 5px;
+    text-align: left;
+    font-family: 'open sans';
+    color: #555;
+    font-weight: bold;
+    font-size: 20px;
+    transform: translateX(10%);
+}
+
+#clicked-photo{
+width: 50vw;
+max-width: 420px;
+height: auto;
+aspect-ratio: 16/12;
+position: fixed;
+bottom: -100vh;
+left: 10vw;
+overflow: hidden;
+display:flex;
+z-index: 50;
+transform: rotateZ(-10deg);
+border: 20px solid white;
+box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+#clicked-photo #photograph{
+position: relative;
+width: 100%;
+height: auto;
+aspect-ratio: 16/12;
+}
+#clicked-photo #face-box{
+position: absolute;
+width: 100%;
+height: auto;
+aspect-ratio: 16/12;
+}
+.clicked-photo-animation{
+animation: throw-upward 5s ease-in-out 1;
+transition: bottom 2s linear;
+}
+@keyframes throw-upward{
+20%{bottom: 35vh;}
+30%{bottom: 40vh; transform: rotateZ(10deg);}
+50%{bottom: -100vh;}
+}
+/* Left Side Panel */
+#video{
+position: relative;
+transform: translateY(0%);
+object-fit: cover;
+width: 100%!important;
+height: auto!important;
+aspect-ratio: 48/45!important;
+}
+canvas{
+position: relative;
+object-fit: cover;
+transform: translateY(-105%);
+width: 100%!important;
+height: auto!important;
+aspect-ratio: 48/45!important;
+}
+#video-container{
+    border: 2px solid white;
+}
+.start-sampling{
+position:absolute;
+top: 0%;
+left: 0%;
+width: 100%;
+height: 100%;
+display: none; 
+justify-content: center;
+place-items: center;
+background-color: transparent;
+box-shadow: inset 0px 0px 20px 10px rgba(0, 0, 0, 0.5);
+border: 5px solid rgba(0,0,0,0.01);
+border-radius: 30px;
+}
+.sample-button{
+border: 3px solid #aaa; outline: none; border-radius: 100px; width: 80%; height: auto; max-width: 440px; aspect-ratio: 16/4.5; display: none; gap: 4%; padding: 1% 5%; background-color: white; overflow: hidden; justify-content: center;
+place-items:center; 
+}        
+.emotions-roll{
+animation: tape 10s  ease-in infinite;
+animation-fill-mode: forwards;
+aspect-ratio: 1/1; flex: 1; background-repeat: repeat-y; background-size: cover; max-width: 200px; background-position: 0% 1%;
+}
+@keyframes tape{
+from{background-position: 0% 1%;}
+to{background-position: 0% 100%;}
+}
+
+#recommendation-note{
+    text-align:center;
+    padding: 0%;
+    font-size: 20px;
+    font-family: 'open sans';
+    color:white;
+    font-weight: bold;
+}
+.recommend-button{
+margin-top:  2%;
+padding: 1.2em;
+width: 65vw;
+max-width: 260px;
+aspect-ratio: 16/4.5;
+background-color: white;
+justify-content:center;
+place-items:center;
+display:flex;
+border-radius: 50px;
+position: relative;
+cursor:pointer;
+overflow: visible!important;
+}
+
+@property --angle{
+syntax: "<angle>";
+initial-value: 0deg;
+inherits: false;
+}
+
+.recommend-button::after, .recommend-button::before{
+content: '';
+position: absolute;
+height: 100%;
+width: 100%;
+background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+top: 50%;
+left: 50%;
+translate: -50% -50%;
+z-index: -1;
+padding: 3px;
+border-radius: 50px;
+animation: 3s spin linear infinite;
+}
+
+.recommend-button::before{
+filter: blur(1.5rem);
+opacity: 0.5;
+}
+@keyframes spin{
+from{
+--angle: 0deg;
+}
+to{
+--angle: 360deg;
+}
+}
+.recommend-button p{
+font-size: min(6.8vw,22px);
+font-family: 'open sans';
+color: black;
+font-weight: normal;
+}
+
+/*Right Side Panel*/
 .player{
+    margin-top: 4%;
     padding: 2%;
-    border-radius: 20px;
+    border-radius: 10px;
     overflow:hidden;
     display: flex; flex-direction: column; justify-content: center; place-items: center;
     width: 65%;
     height: auto;
+    backdrop-filter: blur(8px);
+    background-color: rgba(255,255,255,0.2);
 }
 .player img{
     margin: 5%;
@@ -36,15 +270,18 @@ button{
     flex-direction: row;
     gap: 0%;
     width: 90%;
+    margin-bottom: -5%;
 }
 .current-song-detail h2{
     font-size: min(5vw, 25px);
     font-family: open sans;
+    color:white;
 }
 .current-song-detail p{
     font-size: min(4.2vw, 20px);
     font-family: open sans;
     font-style: italic;
+    color:white;
 }
 .play-button{
     color: white;
@@ -69,11 +306,13 @@ button{
     -webkit-appearance: none;
     width: 100%;
     height: 25px;
+    border-radius: 40px;
     background: #d3d3d3;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
+    margin-bottom: 6%;
 }
 .slider:hover {
         opacity: 1;
@@ -84,6 +323,7 @@ button{
     appearance: none;
     width: 35px;
     height: 35px;
+    border-radius: 100%;
     background: rgb(255, 0, 0);
     cursor: pointer;
 }
@@ -129,6 +369,7 @@ button{
     margin-top: 5%;
     font-family: open sans;
     font-size: min(4vw, 18px);
+    color:white;
 }
 .song-card p{
     margin-top: 2%;
@@ -136,6 +377,7 @@ button{
     font-style: italic;
     font-size: min(3.7vw, 16px);
     margin-bottom: 5%;
+    color:white;
 }
 .similar-song-play{
     width:28%;
@@ -164,103 +406,4 @@ button{
     transform: scale(1.08)!important;
     background-color: rgb(255, 0, 0)!important;
     transition: transform 0.2s linear, background-color 0.1s linear!important;
-}
-
-/* Left Side Panel */
-#video{
-position: relative;
-transform: translateY(0%);
-object-fit: cover;
-width: 100%!important;
-height: auto!important;
-aspect-ratio: 48/45!important;
-}
-canvas{
-position: relative;
-object-fit: cover;
-transform: translateY(-105%);
-width: 100%!important;
-height: auto!important;
-aspect-ratio: 48/45!important;
-}
-.start-sampling{
-position:absolute;
-top: 0%;
-left: 0%;
-width: 100%;
-height: 100%;
-display: flex; 
-justify-content: center;
-place-items: center;
-background-color: transparent;
-}
-.sample-button{
-border: 3px solid #aaa; outline: none; border-radius: 100px; width: 80%; height: auto; max-width: 440px; aspect-ratio: 16/4.5; display: flex; gap: 4%; padding: 1% 5%; background-color: white; overflow: hidden; justify-content: center;
-place-items:center; 
-}        
-.emotions-roll{
-animation: tape 10s  ease-in infinite;
-animation-fill-mode: forwards;
-aspect-ratio: 1/1; flex: 1; background-repeat: repeat-y; background-size: cover; max-width: 200px; background-position: 0% 1%;
-}
-@keyframes tape{
-from{background-position: 0% 1%;}
-to{background-position: 0% 100%;}
-}
-
-#recommendation-note{
-    text-align:center;
-    padding: 2% 0 -5% 0;
-    font-size: 20px;
-    font-family: 'open sans';
-}
-.predict-button{
-margin-top:  4%;
-padding: 1.5em;
-width: 65vw;
-max-width: 300px;
-aspect-ratio: 16/4.5;
-background-color: white;
-justify-content:center;
-place-items:center;
-display:flex;
-border-radius: 50px;
-position: relative;
-cursor:pointer;
-font-size: min(6.6vw,28px);
-font-family: 'open sans';
-}
-
-@property --angle{
-syntax: "<angle>";
-initial-value: 0deg;
-inherits: false;
-}
-
-.predict-button::after, .predict-button::before{
-content: '';
-position: absolute;
-height: 100%;
-width: 100%;
-background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
-top: 50%;
-left: 50%;
-translate: -50% -50%;
-z-index: -1;
-padding: 3px;
-border-radius: 50px;
-animation: 3s spin linear infinite;
-}
-
-.predict-button::before{
-filter: blur(1.5rem);
-opacity: 0.5;
-}
-@keyframes spin{
-from{
---angle: 0deg;
-}
-to{
---angle: 360deg;
-}
 }

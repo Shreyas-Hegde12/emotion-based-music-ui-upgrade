@@ -1,4 +1,11 @@
-let isPlaying = false;
+const note = {
+    'neutral': "Wow! Been a while seeing a calm face! <br>",
+    'happy': "You look so happy! Lets Elevate your mood ++ <br>",
+    'surprised': "Want a surprise? <br>",
+    'sad': ["Buckle up soldier! Don't be sad! Life is not yet over <br>", "You are sad!! Cry it out and feel lighter!!<br>"],
+    'angry': "Ooh! You look angry.. Being happy is still a choice... <br>",
+  }
+  let isPlaying = false;
         let loading = false;
         let songFetched = false;
         let audioElement = new Audio();
@@ -97,6 +104,20 @@ let isPlaying = false;
                 }).then(data => {
                     console.log("Received data:", data);
                     setSong(data)
+                    let re_note =  (note[emotion] ||'') + 'Playing for you ' + '<b>'+ data.mainsong.note+ '</b>';
+                    if (emotion == 'sad') {
+                        let n = data.mainsong.note;
+                        let lastletter = n.charAt(n.length - 1);
+                        
+                        if (lastletter === 's') {
+                            data.mainsong.note = n.slice(0, n.length - 1); // Removing the last character if it's 's'
+                            re_note = note[emotion][1] + ' Playing for you ' + '<b>' + data.mainsong.note + '</b>';
+                        } else {
+                            re_note = note[emotion][0] + ' Playing for you ' + '<b>' + data.mainsong.note + '</b>';
+                        }
+                    }
+                    
+                    document.querySelector('#recommendation-note').innerHTML = re_note;
                 }).catch(error => {
                     console.error("Error fetching data:", error);
                 });

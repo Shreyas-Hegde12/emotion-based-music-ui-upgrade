@@ -2,7 +2,7 @@ from constants import HAPPY,SAD,ANGER,SURPRISE,CALM
 
 e1, e2, e3, e4, e5 = 0,0,0,0,0
 select_group = {
-        'starter':['lover diljit'],
+        'starter':[['lover diljit','a catchy beat!']],
         'happy': HAPPY,
         'sad':SAD,
         'angry': ANGER,
@@ -24,9 +24,9 @@ def emotion_query(emotion):
     
     no = group_count[emotion]
 
-    search_query = select_group[emotion][no]
+    search_query = select_group[emotion][no][0]
 
     group_count[emotion] += 1
 
-    return search_query
+    return search_query, select_group[emotion][no][1]
 

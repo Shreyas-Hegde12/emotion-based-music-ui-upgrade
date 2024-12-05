@@ -2,9 +2,13 @@ from ytmusicapi import YTMusic
 from scrape import emotion_query
 
 ytmusic = YTMusic()
+songnote = ''
 
 def get_song_recommendation(emotion):
-    search_query= emotion_query(emotion)
+    global songnote
+
+    search_query, songnote= emotion_query(emotion)
+    print(search_query, songnote)
     search_results = ytmusic.search(str(search_query), filter="songs", limit=1)
     
     # Set the global variable
@@ -16,6 +20,8 @@ def get_song_recommendation(emotion):
     return fetch_related_songs(video_id, songartists)
 
 def fetch_related_songs(video_id, songartists):
+    global songnote
+
     # Get main song details
     song_details = ytmusic.get_song(video_id)
     if not song_details:
@@ -39,7 +45,8 @@ def fetch_related_songs(video_id, songartists):
             "title": song_details['videoDetails'].get("title", "Unknown Title"),
             "artist": songartists,
             "coverart": song_details['videoDetails']['thumbnail'].get("thumbnails", [{}])[-1].get("url", ""),
-            "videoid": video_id
+            "videoid": video_id,
+            "note": songnote
         },
         "similar1": format_track(similar_tracks[0]),
         "similar2": format_track(similar_tracks[1]),
