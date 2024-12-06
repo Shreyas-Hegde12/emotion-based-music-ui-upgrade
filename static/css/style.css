@@ -2,14 +2,22 @@
     margin:0px;
     padding:0px;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
+body{
+background-color: #000;
+/*background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)*/
+}  
 button{
     cursor: pointer;
 }
 p{
     color: white;
 }
-
+::selection{
+    background-color: transparent;
+}
 ::-webkit-scrollbar {
     display:none!important;
 }
@@ -18,12 +26,7 @@ p{
 }
 ::-webkit-scrollbar-thumb {
     background: #170303;
-}
-body{
-    background-color: #000;
-
-}   
-
+} 
 
 @keyframes rotate {
     0% {
@@ -46,7 +49,7 @@ body{
   }
   
   .smooth-transition{
-    transition: width 5s ease, height 5s ease, filter 0.2s ease, background-image 5s ease, border-radius 5s ease;
+    transition: width 6s ease, height 6s ease, filter 0.2s ease, background-image 6s ease, border-radius 6s ease;
   }
   @media (min-width: 720px) {
     .gradient {
@@ -54,55 +57,42 @@ body{
     }
   }
 
-/*Nav Bar*/
-nav{
+/* Search */
+/* Container for the search bar */
+.search-container {
     display: flex;
     justify-content: center;
-    place-items: center;
+    align-items: center;
     width: 100%;
-    height: auto;
-}
-.logo{
-    position: absolute;
-    top: 3%;
-    left: 2%;
-    font-family: 'open sans';
-    font-size: min(8vw,26px);
-    font-weight: bolder;
-    color: white;
-}
-.search{
-width: 33%;
-height:55px;
-margin: 15px;
-}
-#search-bar{
+    position: relative;
+  }
+  
+  /* Search bar input */
+  .search-bar {
     width: 100%;
+    max-width: 400px;
     height: 50px;
-    border-radius: 30px;
-    background: #1e1e1e;
-    padding: 10px;
-    text-align: left;
-    font-family: 'open sans';
+    padding: 0 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    background-color: #1e1e1f;
     color: white;
-    outline:0px;
-    border: 0px;
-}
-#search-bar::placeholder{
-    padding: 5px;
-    text-align: left;
-    font-family: 'open sans';
-    color: #555;
-    font-weight: bold;
-    font-size: 20px;
-    transform: translateX(10%);
-}
+    outline: none;
+    border:#000 2px solid;
+  }
+  
+  /* Focus effect for the input */
+  .search-bar:focus {
+    background-color: #2b2b2a;
+  }
 
+  
+/*Clicked Photo*/
 #clicked-photo{
 width: 50vw;
 max-width: 420px;
 height: auto;
-aspect-ratio: 16/12;
+aspect-ratio: 16/13;
 position: fixed;
 bottom: -100vh;
 left: 10vw;
@@ -117,23 +107,27 @@ box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0
 position: relative;
 width: 100%;
 height: auto;
-aspect-ratio: 16/12;
+aspect-ratio: 16/13;
 }
 #clicked-photo #face-box{
 position: absolute;
 width: 100%;
 height: auto;
-aspect-ratio: 16/12;
+top: 0px;
+transform: translateY(-9%);
+aspect-ratio: 16/14;
 }
 .clicked-photo-animation{
 animation: throw-upward 5s ease-in-out 1;
 transition: bottom 2s linear;
 }
 @keyframes throw-upward{
-20%{bottom: 35vh;}
-30%{bottom: 40vh; transform: rotateZ(10deg);}
+20%{bottom: 40vh;}
+30%{bottom: 45vh; transform: rotateZ(10deg);}
 50%{bottom: -100vh;}
 }
+
+
 /* Left Side Panel */
 #video{
 position: relative;
@@ -190,6 +184,25 @@ to{background-position: 0% 100%;}
     color:white;
     font-weight: bold;
 }
+.note-glow{
+background-image: linear-gradient(to right,#fff, #4facfe 30%, orange 50%, #00f2fe 80%, #fff);
+ -webkit-background-clip: text;
+background-clip: text;
+-webkit-text-fill-color: transparent;
+color: transparent!important;
+text-transform:uppercase;
+background-size: 500% auto;
+animation: textShine 2s ease-in-out 3;
+}
+@keyframes textShine {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
 .recommend-button{
 margin-top:  2%;
 padding: 1.2em;
@@ -206,41 +219,8 @@ cursor:pointer;
 overflow: visible!important;
 }
 
-@property --angle{
-syntax: "<angle>";
-initial-value: 0deg;
-inherits: false;
-}
-
-.recommend-button::after, .recommend-button::before{
-content: '';
-position: absolute;
-height: 100%;
-width: 100%;
-background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
-top: 50%;
-left: 50%;
-translate: -50% -50%;
-z-index: -1;
-padding: 3px;
-border-radius: 50px;
-animation: 3s spin linear infinite;
-}
-
-.recommend-button::before{
-filter: blur(1.5rem);
-opacity: 0.5;
-}
-@keyframes spin{
-from{
---angle: 0deg;
-}
-to{
---angle: 360deg;
-}
-}
 .recommend-button p{
-font-size: min(6.8vw,22px);
+font-size: min(6.8vw,20px);
 font-family: 'open sans';
 color: black;
 font-weight: normal;
@@ -249,8 +229,9 @@ font-weight: normal;
 /*Right Side Panel*/
 .player{
     margin-top: 4%;
-    padding: 2%;
+    padding: 1%;
     border-radius: 10px;
+    min-width: 380px;
     overflow:hidden;
     display: flex; flex-direction: column; justify-content: center; place-items: center;
     width: 65%;
@@ -259,11 +240,11 @@ font-weight: normal;
     background-color: rgba(255,255,255,0.2);
 }
 .player img{
-    margin: 5%;
-    width: 90%;
+    margin: 4%;
+    width:90%;
     height: auto;
     aspect-ratio: 1/1;
-
+    border-radius: 5px;
 }
 .current-song-detail{
     display: flex;
@@ -273,20 +254,23 @@ font-weight: normal;
     margin-bottom: -5%;
 }
 .current-song-detail h2{
-    font-size: min(5vw, 25px);
+    font-size: min(4.5vw, 28px);
+    padding-bottom: 4%;
     font-family: open sans;
     color:white;
+    margin-left: -5%;
 }
 .current-song-detail p{
-    font-size: min(4.2vw, 20px);
+    font-size: min(4vw, 20px);
     font-family: open sans;
     font-style: italic;
     color:white;
+    margin-left: -5%;
 }
 .play-button{
     color: white;
-    background-color: rgb(202, 2, 2);
-    width: 65%;
+    background-color: red;
+    width: 70%;
     height: auto;
     aspect-ratio: 1/1;
     padding: 10%;
@@ -299,6 +283,7 @@ font-weight: normal;
 }
 .play-button:hover{
     background-color:  rgb(255, 0, 0);
+    color: white;
     transform: translate(20%,-50%) scale(1.1);
 }
 .slider {
@@ -306,7 +291,7 @@ font-weight: normal;
     -webkit-appearance: none;
     width: 100%;
     height: 25px;
-    border-radius: 40px;
+    border-radius: 0px;
     background: #d3d3d3;
     outline: none;
     opacity: 0.7;
@@ -315,23 +300,23 @@ font-weight: normal;
     margin-bottom: 6%;
 }
 .slider:hover {
-        opacity: 1;
+    opacity: 1;
 }
 
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 35px;
-    height: 35px;
-    border-radius: 100%;
-    background: rgb(255, 0, 0);
+    height: 55px;
+    border-radius: 0%;
+    background: white;
     cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
     width: 35px;
     height: 35px;
-    background: rgb(255, 0, 0);
+    background: white;
     cursor: pointer;
 }
 

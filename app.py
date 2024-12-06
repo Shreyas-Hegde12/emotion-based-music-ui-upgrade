@@ -50,6 +50,9 @@ async def songurl():
         videoid = data.get('videoid')
         if not videoid:
             return jsonify({'error': 'videoid is required'}), 400
+        #Me Pushpa Fan
+        if videoid=='T7xmqisFI-Y':
+            videoid = 'EEqq0_Etuos'
 
         # Configure yt-dlp options
         ydl_opts = {

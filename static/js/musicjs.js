@@ -23,26 +23,34 @@ const note = {
     
             // Update play/pause icon
             playButton.textContent = isPlaying ? '⏸' : '▶';
+            const act = isPlaying ? 1:0;
 
             if (isPlaying) {
                 audioElement.play();
+                cooldown(0);
             } else {
                 audioElement.pause();
+                cooldown(1);
             }
         }
 
-
         // Initialize Audio and Slider
+        let sliderInterval;
         function updateSlider(bool) {
             const slider = document.getElementById("music-slider");
             if(bool==0){
                 slider.max = audioElement.duration;
-                setInterval(() => {
+                sliderInterval = setInterval(() => {
                     slider.value = audioElement.currentTime;
                 }, 1000);
             }
             if(bool==1){
+                clearInterval(sliderInterval);
                 audioElement.currentTime = slider.value;
+                sliderInterval = setInterval(() => {
+                    slider.value = audioElement.currentTime;
+                }, 1000);
+
             }
         }
 
@@ -50,13 +58,13 @@ const note = {
         function setSong(data) {
             if (data) {
                 // Check and truncate title if it's longer than 20 characters
-                if (data.mainsong.title.length > 20) {
-                    data.mainsong.title = data.mainsong.title.slice(0, 17) + '...';  // Truncate to 17 characters and add '...'
+                if (data.mainsong.title.length > 23) {
+                    data.mainsong.title = data.mainsong.title.slice(0, 22) + '..';  // Truncate to 17 characters and add '...'
                 }
             
                 // Check and truncate artist if it's longer than 18 characters
-                if (data.mainsong.artist.length > 18) {
-                    data.mainsong.artist = data.mainsong.artist.slice(0, 15) + '...';  // Truncate to 15 characters and add '...'
+                if (data.mainsong.artist.length > 20) {
+                    data.mainsong.artist = data.mainsong.artist.slice(0, 17) + '..';  // Truncate to 15 characters and add '...'
                 }
             }
             
@@ -104,20 +112,23 @@ const note = {
                 }).then(data => {
                     console.log("Received data:", data);
                     setSong(data)
-                    let re_note =  (note[emotion] ||'') + 'Playing for you ' + '<b>'+ data.mainsong.note+ '</b>';
+                    let re_note =  (note[emotion] ||'') + 'Playing for you ' + ' <b>'+ data.mainsong.note+ '</b>';
                     if (emotion == 'sad') {
                         let n = data.mainsong.note;
                         let lastletter = n.charAt(n.length - 1);
                         
                         if (lastletter === 's') {
                             data.mainsong.note = n.slice(0, n.length - 1); // Removing the last character if it's 's'
-                            re_note = note[emotion][1] + ' Playing for you ' + '<b>' + data.mainsong.note + '</b>';
+                            re_note = note[emotion][1] + ' Playing for you ' + ' <b>' + data.mainsong.note + '</b>';
                         } else {
-                            re_note = note[emotion][0] + ' Playing for you ' + '<b>' + data.mainsong.note + '</b>';
+                            re_note = note[emotion][0] + ' Playing for you ' + ' <b>' + data.mainsong.note + '</b>';
                         }
                     }
                     
                     document.querySelector('#recommendation-note').innerHTML = re_note;
+                    const glow = setTimeout(() => {
+                        document.querySelector('b').classList.add('note-glow');
+                    }, 3e3);
                 }).catch(error => {
                     console.error("Error fetching data:", error);
                 });

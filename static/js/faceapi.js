@@ -57,7 +57,7 @@ video.addEventListener('play', () => {
         const box = resizedDetections.detection.box;
         const ctx = canvas.getContext('2d');
 
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';  // Green box around the face
+        ctx.strokeStyle = 'rgba(1, 1, 1, 0.8)';  // Green box around the face
         ctx.lineWidth = 2;
         ctx.strokeRect(box.x, box.y, box.width, box.height);
         
@@ -109,9 +109,12 @@ observer.observe(video);
 
 
 //button click cooldown
-function cooldown(){
+function cooldown(bool){
   cooldowntime=true;
   const cool = setTimeout(function(){cooldowntime=false; if(video.paused){video.play();}},5e3);
+  if(bool==1){
+    cooldowntime=false; if(video.paused){video.play();}
+  }
 }
 
 //pick dominant emotion
@@ -122,14 +125,16 @@ function setDominantEmotion(expressions) {
 }
 
 function recommend(){
-  cooldown();
+  if(cooldowntime==false){
+  cooldown(0);
   fetchSongOnEmotion(dominantExpression);
   generatePhoto();
-  throwPhoto();
   video.pause();
+  document.querySelector('#video-container').classList.remove('smooth-transition'); 
   document.querySelector('#video-container').classList.add('gradient');
-  const a = setTimeout(function(){document.querySelector('#video-container').classList.remove('gradient'); },2e3);
-}
+  throwPhoto();
+  let a = setTimeout(function(){document.querySelector('#video-container').classList.add('smooth-transition'); document.querySelector('#video-container').classList.remove('gradient'); },3e3);
+}}
 
 function generatePhoto(){
   const vd = document.querySelector('video');

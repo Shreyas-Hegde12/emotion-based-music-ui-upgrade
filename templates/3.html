@@ -18,22 +18,33 @@
     </head>
 
     <body>
-        <nav>
-            <p class="logo">WeAreMoody.</p>
-            <form class="search">
-                <input type="search" id="search-bar" placeholder="Have a particular song in mind?">
-            </form>
-        </nav>
 
         <div id="clicked-photo">
             <img id="photograph" src=""><img id="face-box" src="">
         </div>
 
-        <div style="position: relative; width: 100%; display: flex; flex-direction: row;  flex-wrap: wrap; margin-top: -10px;" >
+        <!-- Nav -->
+        <div style="width:100%; height: 65px; overflow: hidden; display:flex; justify-content: center; place-items: center; position: relative; ">
+            <div style="position:absolute; top: 0%; left:20px; height: 65px; cursor: pointer; z-index: 500; display:flex; flex-direction: row; justify-content: center; place-items: center; text-align:center; ">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 108" width="auto" height="90%">
+                    <path d="M0 0 C9.05968506 6.26671857 14.94100553 15.47171319 17.24609375 26.18359375 C18.81991565 37.48649647 15.74128198 46.73937844 9.18359375 55.83984375 C3.53319829 62.87618527 -4.29416542 68.21634528 -13.28515625 69.71484375 C-25.13067435 70.65310261 -35.06172885 69.04179909 -44.4375 61.41796875 C-52.82645309 53.68523398 -57.18044616 46.16501456 -58.28515625 34.71484375 C-58.42730762 23.69811295 -55.81262864 14.56300439 -48.1171875 6.52734375 C-47.51261719 5.92921875 -46.90804687 5.33109375 -46.28515625 4.71484375 C-45.77339844 4.15796875 -45.26164062 3.60109375 -44.734375 3.02734375 C-33.03956676 -8.58040636 -13.48602832 -7.58445011 0 0 Z " fill="#F8F8F8" transform="translate(113.28515625,23.28515625)"/>
+                    <path d="M0 0 C0 0.66 0 1.32 0 2 C-2.6598868 3.82064665 -5.42577777 5.41596707 -8.203125 7.05078125 C-16.64247333 12.93239413 -21.43546213 23.33608795 -23.53125 33.12890625 C-25.47418726 45.02939695 -22.45001278 55.94196638 -16.171875 66.1640625 C-13.09403467 70.18296912 -9.48721749 73.13458688 -5.453125 76.16015625 C-3.43879262 77.67090553 -1.7134235 79.16663685 0 81 C-1.58199631 81.64910154 -3.16565724 82.29414694 -4.75 82.9375 C-6.07257813 83.47697266 -6.07257813 83.47697266 -7.421875 84.02734375 C-17.54898868 87.84802755 -29.81255984 87.01556507 -39.8984375 83.44921875 C-49.65595382 78.88997624 -56.62533047 72.24382939 -62 63 C-62.40863281 62.33226563 -62.81726563 61.66453125 -63.23828125 60.9765625 C-69.44232094 49.92209177 -68.87114418 36.90171059 -65.5625 25 C-60.81103505 12.17104463 -52.10526121 3.91576207 -40 -2 C-27.14889683 -7.61743007 -12.11763217 -7.41895847 0 0 Z " fill="#F5F5F5" transform="translate(74,15)"/>
+                    <path d="" fill="#000000" transform="translate(0,0)"/>
+                    <path d="" fill="#FFFFFF" transform="translate(0,0)"/>
+                </svg>
+                <p style="display:none; font-size: 16px; margin-left: -15px; font-family: 'open sans'; font-weight: bold; color: white;">Moon Library.</p>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="search-bar" class="search-bar" placeholder="Have a particular song?"/>
+            </div>              
+        </div>
 
+        <!-- Main -->
+        <div style="position: relative; width: 100%; display: flex; flex-direction: row; flex-wrap: wrap;" >
             <!-- ML Model Emotion Recognition -->
-            <div style="flex: 1; display: flex; gap: 5%; flex-direction: column; justify-content: center; place-items: center; height: 100vh; margin: 10px 5px 10px 10px; background: #1e1e1e; border-radius: 10px; overflow: hidden;">
-                <div name="video" style="width: 85%; max-width: 600px; height: auto; border-radius: 0px; aspect-ratio: 16/11; overflow:visible!important; position: relative;" >
+            <div style="flex: 1; display: flex; min-width: 460px; gap: 5%; flex-direction: column; justify-content: center; place-items: center; height: 105vh; margin: 0px 5px 10px 10px; background:#1e1e1e; border-radius: 10px; overflow: hidden;">
+                <div name="video" style="width: 85%; max-width: 600px; height: auto; aspect-ratio: 16/11; overflow:visible; position: relative;" >
                     <div class="gradient" style="width: 100%; height: auto; border-radius: 20px; aspect-ratio: 16/11; overflow:hidden; position:relative;" id="video-container">
                         <video id="video" width="480px" height="450px" autoplay muted></video>
                     </div>
@@ -43,17 +54,17 @@
 
                 <p id="recommendation-note"></p>
                 <div class="recommend-button" onclick="recommend()"><p>Recommend a Song</p></div>
-                <br>
+                <br><br>
             </div>
         
             <!-- Main Player -->
-            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; place-items: center; margin: 10px 10px 10px 5px; overflow:hidden; background-image: linear-gradient(to bottom, #4158D0 10%, #1e1e1e 30%); border-radius: 10px;">
+            <div style="flex: 1; display: flex; flex-direction: column; min-width: 460px; justify-content: center; place-items: center; margin: 0px 10px 10px 5px; overflow:hidden; background-image: radial-gradient(circle at top, #4158D0, #121212 40%); background-position: top center; border-radius: 10px;">
                 <!-- Playing Card -->
-                <div class="player">
+                <div class="player" id="songs">
                         <img src="https://img.freepik.com/premium-photo/white-natural-paper-texture-clean-square-background-wallpaper_118047-7127.jpg" alt="Song Artwork">
                     <div name="mainsong metadata" class="current-song-detail">
                         <div style="flex: 1;">
-                            <button class="play-button" onclick="togglePlay(); cooldown();"><div style="transform: translate(5%,-5%);">▶</div></button>
+                            <button class="play-button" onclick="togglePlay();"><div style="transform: translate(5%,-5%);">▶</div></button>
                         </div>
                         <div style="flex: 1;">
                             <div><h2>Song Title</h2></div>
@@ -69,9 +80,9 @@
 
                 <!-- Similar Songs Cards -->
                  <p style="font-size: min(8vw, 30px); font-family: open sans; padding: 5% 0% 2% 0%;">Similar Songs</p>
-                 <div class="similar-songs" style="overflow-y: hidden; overflow-x: auto; width: 100%;  height: auto; max-width: 450px; aspect-ratio: 16/19; ">
+                 <div class="similar-songs" style="overflow-y: hidden; overflow-x: auto; width: 100%;  height: auto; max-width: 480px; aspect-ratio: 16/16; ">
                     <div>
-                        <div class="song-card" id="similar1" onclick="similarsongclick('#similar1'); cooldown();">
+                        <div class="song-card" id="similar1" onclick="similarsongclick('#similar1'); cooldown(0);">
                             <div class="thumb">
                                 <img src="https://img.freepik.com/premium-photo/white-natural-paper-texture-clean-square-background-wallpaper_118047-7127.jpg" alt="Song 1">
                             </div>

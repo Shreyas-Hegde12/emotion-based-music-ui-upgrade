@@ -7,10 +7,13 @@ songnote = ''
 def get_song_recommendation(emotion):
     global songnote
 
-    search_query, songnote= emotion_query(emotion)
-    print(search_query, songnote)
+    search_query, songnote= emotion_query(emotion) #'Olithu Maadu Manusa-C Ashwath',''
     search_results = ytmusic.search(str(search_query), filter="songs", limit=1)
-    
+
+    #exceptions
+    if (search_query=='Olithu Maadu Manusa-C Ashwath'):
+        search_results = ytmusic.search(str(search_query), limit=1)
+
     # Set the global variable
     mainsong = search_results[0]
     video_id = mainsong.get("videoId")
